@@ -20,7 +20,6 @@ export const Checkout = () => {
     const response = await api.GetSeatsInfo(UUID, date);
     if (response) {
       setSeatsInfo(response.Seats);
-      console.log(seatsInfo);
     }
     setSelectedDate(date);
   };
@@ -31,7 +30,7 @@ export const Checkout = () => {
     <div>
       <Header />
       <Sidebar />
-      <div className="flex flex-col justify-center items-center fixed text-white bottom-1/2 left-40%">
+      <div className="flex flex-col justify-center items-center text-white space-y-4">
         {!eventInfo && (
           <div>
             <Formik
@@ -70,6 +69,7 @@ export const Checkout = () => {
                       outline: 'none',
                     }}></Field>
                   <button
+                    className="border-[1px] border-transparent border-solid rounded-xl bg-zinc-600 hover:text-white p-2 m-2 cursor-pointer"
                     type="submit"
                     disabled={isSubmitting}>
                     Submit
@@ -80,13 +80,20 @@ export const Checkout = () => {
           </div>
         )}
         {eventInfo && (
-          <div>
-            <h2>Event Information</h2>
-            <p>Event Name: {eventInfo?.Event.name}</p>
-            <p>Location: {eventInfo?.Event.location}</p>
-            <h2>Dates</h2>
+          <div className="space-y-2">
+            <h2 className="text-3xl font-bold">Event Information</h2>
+            <p>
+              <span className="font-bold">Event Name:</span>{' '}
+              {eventInfo?.Event.name}
+            </p>
+            <p>
+              <span className="font-bold">Location:</span>{' '}
+              {eventInfo?.Event.location}
+            </p>
+            <h2 className="text-2xl font-bold">Dates</h2>
             {eventInfo?.Event.date.map((date, index) => (
               <button
+                className="border-[1px] border-transparent border-solid rounded-md bg-zinc-600 hover:text-white p-2 m-2 cursor-pointer"
                 key={index}
                 onClick={() => handleSeat(eventInfo.UUID, date)}>
                 <td>{moment(date).format('D MMMM YYYY')}</td>
@@ -96,17 +103,12 @@ export const Checkout = () => {
         )}
         {selectedDate && (
           <div>
-            <h2>Seats</h2>
+            <h2 className="text-2xl font-bold">Seats</h2>
             <h3>{moment(selectedDate).format('D MMMM YYYY')}</h3>
             {Array.isArray(seatsInfo) &&
               seatsInfo?.map((seat, index) => (
                 <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                  }}
+                  className="flex flex-row justify-between items-center space-x-10 "
                   key={index}>
                   <p>Price: € {seat.price}</p>
                   <p>Row: {seat.row}</p>
