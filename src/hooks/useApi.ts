@@ -9,7 +9,6 @@ export const useApi = () => ({
     try {
       const response = await api.get(
         'getDates'
-        // 'getDates?eventUrl=' + EventURL
       );
       if (response.data) {
         return response.data;
@@ -22,7 +21,6 @@ export const useApi = () => ({
     try {
       const response = await api.get(
         'getSeats'
-        // 'getSeats?uuid=' + UUID + '&dateId=' + date
       );
       if (response.data) {
         return response.data;
