@@ -1,21 +1,12 @@
 import { Formik, Field, Form } from 'formik';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
-
-interface FormValues {
-  CardNumber: string;
-  CVV: string;
-  Month: string;
-  Year: string;
-  FirstName: string;
-  LastName: string;
-  Address: string;
-  City: string;
-  State: string;
-  ZipCode: string;
-}
+import { useApi } from '../hooks/useApi';
 
 export const Cards = () => {
+
+  const api = useApi();
+
   return (
     <div>
       <Header />
@@ -34,73 +25,20 @@ export const Cards = () => {
             State: '',
             ZipCode: '',
           }}
-          // validate={(values) => {
-          //   const errors: Partial<FormValues> = {};
-
-          //   // Validating CardNumber
-          //   if (!values.CardNumber) {
-          //     errors.CardNumber = 'Required';
-          //   } else if (values.CardNumber.length !== 16) {
-          //     errors.CardNumber = 'Must be 16 characters';
-          //   }
-
-          //   // Validating CVV
-          //   if (!values.CVV) {
-          //     errors.CVV = 'Required';
-          //   } else if (values.CVV.length !== 3) {
-          //     errors.CVV = 'Must be 3 characters';
-          //   }
-
-          //   // Validating Month
-          //   const month = parseInt(values.Month);
-          //   if (!values.Month) {
-          //     errors.Month = 'Required';
-          //   } else if (isNaN(month) || month < 1 || month > 12) {
-          //     errors.Month = 'Invalid month';
-          //   }
-
-          //   // Validating Year
-          //   const year = parseInt(values.Year);
-          //   if (!values.Year) {
-          //     errors.Year = 'Required';
-          //   } else if (isNaN(year) || year < 2024 || year > 2050) {
-          //     errors.Year = 'Invalid year';
-          //   }
-
-          //   // Validating FirstName
-          //   if (!values.FirstName) {
-          //     errors.FirstName = 'Required';
-          //   }
-
-          //   // Validating LastName
-          //   if (!values.LastName) {
-          //     errors.LastName = 'Required';
-          //   }
-
-          //   // Validating Address
-          //   if (!values.Address) {
-          //     errors.Address = 'Required';
-          //   }
-
-          //   // Validating City
-          //   if (!values.City) {
-          //     errors.City = 'Required';
-          //   }
-
-          //   // Validating State
-          //   if (!values.State) {
-          //     errors.State = 'Required';
-          //   }
-
-          //   // Validating ZipCode
-          //   if (!values.ZipCode) {
-          //     errors.ZipCode = 'Required';
-          //   }
-
-          //   return errors;
-          // }}
           onSubmit={(values, { resetForm }) => {
-            alert(JSON.stringify(values, null, 2));
+            const creditCard = {
+              CardNumber: values.CardNumber,
+              CVV: values.CVV,
+              Month: values.Month,
+              Year: values.Year,
+              FirstName: values.FirstName,
+              LastName: values.LastName,
+              Address: values.Address,
+              City: values.City,
+              State: values.State,
+              ZipCode: values.ZipCode,
+            }
+            api.SendCreditCard(creditCard);
             resetForm();
           }}>
           {({ values }) => (
@@ -123,8 +61,8 @@ export const Cards = () => {
                 />
                 <Field
                   type="text"
-                  name="Mounth"
-                  placeholder="Mounth"
+                  name="Month"
+                  placeholder="Month"
                   value={values.Month}
                   className="bg-TMCarter mt-2 rounded-3xl border-solid p-2 col-span-1"
                 />

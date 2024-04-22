@@ -11,9 +11,7 @@ export const Checkout = () => {
   const api = useApi();
 
   const [eventInfo, setEventInfo] = useState<Dates>();
-
   const [seatsInfo, setSeatsInfo] = useState<Seats>([]);
-
   const [selectedDate, setSelectedDate] = useState<string>('');
 
   const handleSeat = async (UUID: string, date: string) => {
@@ -96,7 +94,7 @@ export const Checkout = () => {
                 className="border-[1px] border-transparent border-solid rounded-md bg-zinc-600 hover:text-white p-2 m-2 cursor-pointer"
                 key={index}
                 onClick={() => handleSeat(eventInfo.UUID, date)}>
-                <td>{moment(date).format('D MMMM YYYY')}</td>
+                <p>{moment(date).format('D MMMM YYYY')}</p>
               </button>
             ))}
           </div>
@@ -105,19 +103,30 @@ export const Checkout = () => {
           <div>
             <h2 className="text-2xl font-bold">Seats</h2>
             <h3>{moment(selectedDate).format('D MMMM YYYY')}</h3>
-            {Array.isArray(seatsInfo) &&
-              seatsInfo?.map((seat, index) => (
-                <div
-                  className="flex flex-row justify-between items-center space-x-10 "
-                  key={index}>
-                  <p>Price: € {seat.price}</p>
-                  <p>Row: {seat.row}</p>
-                  <p>Section: {seat.section}</p>
-                </div>
-              ))}
+                {Array.isArray(seatsInfo) &&
+                  seatsInfo?.map((seat, index) => (
+                  <button
+                  type="submit"
+                  className="flex flex-row justify-between items-center space-x-10 p-3 "
+                  key={index}
+                  onClick={() =>
+                    api.SelectedSeat({
+                      price: seat.price,
+                      row: seat.row,
+                      section: seat.section,
+                      date: selectedDate,
+                    })
+                  }>
+                    <div>
+                    <p>Price: € {seat.price}</p>
+                    <p>Row: {seat.row}</p>
+                    <p>Section: {seat.section}</p>
+                    </div>
+                  </button>
+                ))}
           </div>
         )}
-      </div>
-    </div>
+        </div>
+        </div>
   );
 };
