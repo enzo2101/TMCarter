@@ -4,7 +4,7 @@
 //   price: number;
 // }[];
 
-export interface Seat {
+interface Seat {
   section: string;
   row: string;
   price: number;

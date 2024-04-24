@@ -6,7 +6,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        "TMCarter": "#151517"
+        "TMCarter": "#151517",
+        "TMBorder": "#222024",
       }
     },
   },

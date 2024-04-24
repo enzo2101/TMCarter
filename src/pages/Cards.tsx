@@ -1,7 +1,7 @@
 import { Formik, Field, Form } from 'formik';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
-import { useApi } from '../hooks/useApi';
+import useApi from '../hooks/useApi';
 
 export const Cards = () => {
 

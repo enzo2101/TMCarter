@@ -23,8 +23,8 @@ export const Sidebar = () => {
       <div
         style={{
           display: 'flex',
-          justifyContent: 'space-between  ', // This spreads out the child components evenly
-          width: '80%', // Match the width of SpentCard for alignment
+          justifyContent: 'space-between  ',
+          width: '80%',
           marginTop: '20px',
         }}>
         <TotalCheckouts />
