@@ -1,3 +1,4 @@
 export type idproxy = {
-  ID
+  ID: number,
+  Name: string,
 }

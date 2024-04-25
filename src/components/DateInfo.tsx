@@ -8,12 +8,12 @@ export const DateInfo = ({ eventInfo, setSeatsInfo, setSelectedDate }: { eventIn
 
   const api = useApi();
 
-  const handleSeat = async (UUID: string, date: string) => {
-    const response = await api.GetSeatsInfo(UUID/* , date */);
+  const handleSeat = async (date: number) => {
+    const response = await api.GetSeatsInfo(date);
     if (response) {
       setSeatsInfo(response.Seats);
     }
-    setSelectedDate(date);
+    setSelectedDate(eventInfo.Event.date[date]);
   };
 
   return (
@@ -30,7 +30,7 @@ export const DateInfo = ({ eventInfo, setSeatsInfo, setSelectedDate }: { eventIn
         <button
           className="border-[1px] border-transparent border-solid rounded-md bg-zinc-600 hover:text-white p-2 m-2 cursor-pointer"
           key={index}
-          onClick={() => handleSeat(eventInfo.UUID, date)}>
+          onClick={() => handleSeat(index)}>
           <p>{moment(date).format('D MMMM YYYY')}</p>
         </button>
       ))}
