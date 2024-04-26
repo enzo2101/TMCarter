@@ -1,16 +1,15 @@
 import moment from 'moment';
 import useApi from '../hooks/useApi';
 import { Seats } from '../types/Seats';
-import { Dates } from '../types/Dates';
 
 export const SelectedDate = ({
   selectedDate,
   seatsInfo,
-  eventInfo
+  selectedCard
 }: {
+  selectedCard: string;
   selectedDate: string;
   seatsInfo: Seats | undefined;
-  eventInfo: Dates;
 }) => {
   const api = useApi();
 
@@ -26,8 +25,8 @@ export const SelectedDate = ({
             key={index}
             onClick={() =>
               api.SelectedSeat({
-                seat: index,
-                date: eventInfo.Event.date.findIndex((date) => date === selectedDate),
+                seatIndex: index,
+                cardID: selectedCard
               })
             }>
             <p>Price: € {seat.price}</p>

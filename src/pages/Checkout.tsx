@@ -19,7 +19,8 @@ export const Checkout = () => {
   const [eventInfo, setEventInfo] = useState<Dates>();
   const [seatsInfo, setSeatsInfo] = useState<Seats>();
   const [selectedDate, setSelectedDate] = useState<string>('');
-  const [isLoaded, setIsLoaded] = useState<boolean>();
+
+  const [selectedCard, setSelectedCard] = useState<string>('');
 
   const info = useContext(InfoContext);
 
@@ -42,7 +43,7 @@ export const Checkout = () => {
                 onSubmit={async (values, { setSubmitting, resetForm }) => {
                   try {
                     const response: Dates = await api.GetEventInfo(values);
-                    setIsLoaded(false);
+                    setSelectedCard(values.CardID);
 
                     if (response.Event.date) {
                       setEventInfo(response);
@@ -105,7 +106,6 @@ export const Checkout = () => {
               </Formik>
             </div>
           )}
-          {isLoaded && <div>Loading...</div>}
           {eventInfo && (
             <div>
               <DateInfo
@@ -118,9 +118,9 @@ export const Checkout = () => {
           {eventInfo && selectedDate && (
             <div>
               <SelectedDate
+                selectedCard={selectedCard}
                 seatsInfo={seatsInfo}
                 selectedDate={selectedDate}
-                eventInfo={eventInfo}
               />
             </div>
           )}
