@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
 import { Formik, Form, Field } from 'formik';
@@ -8,46 +8,26 @@ import moment from 'moment';
 import { Seats } from '../types/Seats';
 import { SelectedDate } from '../components/SelectedDate';
 import { DateInfo } from '../components/DateInfo';
-import { idproxy } from '../types/idproxy';
-import { idCards } from '../types/idCards';
+import { InfoContext } from '../context/InfoContext';
+import { proxyGroup } from '../types/proxyGroupType';
+import { cardGroup } from '../types/cardGroupType';
+
 
 export const Checkout = () => {
   const api = useApi();
 
   const [eventInfo, setEventInfo] = useState<Dates>();
   const [seatsInfo, setSeatsInfo] = useState<Seats>();
-  const [idProxy, setIdProxy] = useState([]);
-  const [idCard, setIdCard] = useState([]);
   const [selectedDate, setSelectedDate] = useState<string>('');
   const [isLoaded, setIsLoaded] = useState<boolean>();
 
+  const info = useContext(InfoContext);
+
+  const proxies = info?.proxyGroup;
+
+  const cards = info?.cardGroup;
+
   moment.locale('en');
-
-  useEffect(() => {
-    const GetProxies = async () => {
-      api
-        .GetProxies()
-        .then((response) => {
-          setIdProxy(response);
-        })
-        .catch((error) => {
-          console.error('There was a problem with the request:', error.message);
-        });
-    };
-
-    GetProxies();
-    const GetCards = async () => {
-      api
-        .GetCards()
-        .then((response) => {
-          setIdCard(response);
-        })
-        .catch((error) => {
-          console.error('There was a problem with the request:', error.message);
-        });
-    };
-    GetCards();
-  }, []);
 
   return (
     <>
@@ -84,13 +64,13 @@ export const Checkout = () => {
                       placeholder="Event URL"
                       value={values.EventURL}
                       className="mt-2 rounded-3xl bg-TMCarter border-[1px] border-TMBorder text-white p-4 w-[500px] outline-none"></Field>
-                    {idProxy && (
+                    {Array.isArray(proxies) && proxies && (
                       <Field
                         as="select"
                         name="ProxyID"
                         className="p-4 rounded-lg w-2/3">
                         <option value="">Select Proxy Group</option>
-                        {idProxy.map((proxy: idproxy, index) => (
+                        {proxies.map((proxy: proxyGroup, index) => (
                           <option
                             key={index}
                             value={proxy.ID}>
@@ -99,13 +79,13 @@ export const Checkout = () => {
                         ))}
                       </Field>
                     )}
-                    {idCard && (
+                    {Array.isArray(cards) && cards && (
                       <Field
                         as="select"
                         name="CardID"
                         className="p-4 rounded-lg w-2/3">
                         <option value="">Select Card Group</option>
-                        {idCard.map((card: idCards, index) => (
+                        {cards.map((card: cardGroup, index) => (
                           <option
                             key={index}
                             value={card.id}>
