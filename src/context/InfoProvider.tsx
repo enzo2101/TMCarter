@@ -4,7 +4,7 @@ import { InfoContext } from './InfoContext';
 import { proxyGroup } from '../types/proxyGroupType';
 import { cardGroup } from '../types/cardGroupType';
 
-export const InfoProvider = ({children}: {children: JSX.Element}) => {
+export const InfoProvider = ({ children }: { children: JSX.Element }) => {
   const api = useApi();
 
   const [proxyGroup, setProxyGroup] = useState<proxyGroup | null>(null);
@@ -15,6 +15,7 @@ export const InfoProvider = ({children}: {children: JSX.Element}) => {
       api
         .GetProxies()
         .then((response) => {
+          console.log(response);
           setProxyGroup(response);
         })
         .catch((error) => {
@@ -27,6 +28,7 @@ export const InfoProvider = ({children}: {children: JSX.Element}) => {
       api
         .GetCards()
         .then((response) => {
+          console.log(response);
           setCardGroup(response);
         })
         .catch((error) => {
