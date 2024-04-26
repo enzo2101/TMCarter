@@ -4,6 +4,7 @@ import { valuestype } from '../types/valuesType';
 const api = axios.create({
   baseURL: 'http://127.0.0.1:8080',
   headers: {
+    'Content-Type': 'application/json',
     'Authorization':
       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjF9.U8vklm5sx2lSfAJjpN9A4vu5aeJcvAX-WRzzUtXtRFA',
   },
@@ -59,10 +60,11 @@ const useApi = () => ({
     }
   },
 
-  SendProxies: async (proxies: string[]) => {
+  SendProxies: async (group_name: string, proxies: string[]) => {
     try {
-      const response = await api.post('/proxies', { proxies });
+      const response = await api.post('/user/proxies', { group_name, proxies });
       if (response.data) {
+        console.log(response.data)
         return response.data;
       }
     } catch (error) {

@@ -16,38 +16,35 @@ export const Proxies = () => {
         <Formik
           initialValues={{
             Proxies: '',
+            ProxiesName: '',
           }}
           onSubmit={(values, { resetForm }) => {
-            const valuesParsed = values.Proxies.split('\n');
-            api.SendProxies(valuesParsed);
+            const proxiesParsed = values.Proxies.split('\n');
+            api.SendProxies(values.ProxiesName, proxiesParsed);
             resetForm();
           }}>
           {({ values }) => (
             <div className="flex">
-              <Form>
+              <Form className="flex flex-col">
+                <Field
+                type="text"
+                name="ProxiesName"
+                placeholder="Group Name"
+                value={values.ProxiesName}
+                className="mt-2 rounded-3xl bg-TMCarter border-[1px] border-TMBorder text-white p-4 w-[500px] outline-none"
+                />
                 <Field
                   as="textarea"
                   type="text"
                   name="Proxies"
                   placeholder="127.0.0.1:8080:user:pass"
                   value={values.Proxies}
-                  style={{
-                    marginTop: '10px',
-                    borderRadius: '25px',
-                    backgroundColor: '#151517',
-                    borderStyle: 'solid',
-                    borderColor: '#222024',
-                    color: 'white',
-                    padding: '10px',
-                    width: '500px',
-                    outline: 'none',
-                    height: '200px',
-                  }}
+                  className="mt-2 rounded-3xl bg-TMCarter border-[1px] border-TMBorder text-white p-4 w-[500px] outline-none h-56"
                 />
                 <button
                   type="submit"
                   className="border-[1px] border-transparent border-solid rounded-xl bg-zinc-600 hover:text-white p-2 m-2 cursor-pointer">
-                  Submit
+                  Create Proxy Group
                 </button>
               </Form>
             </div>
