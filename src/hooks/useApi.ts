@@ -1,17 +1,32 @@
 import axios from 'axios';
 import { valuestype } from '../types/valuesType';
 
+type CreditCardData = {
+  number: string;
+  exp_month: string;
+  exp_year: string;
+  cvv: string;
+  address: {
+    address_line: string;
+    city: string;
+    country: string;
+    name_on_card: string;
+    phone: string;
+    postal_code: string;
+    state: string;
+  };
+};
+
 const api = axios.create({
   baseURL: 'http://127.0.0.1:8080',
   headers: {
     'Content-Type': 'application/json',
-    'Authorization':
+    Authorization:
       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjF9.U8vklm5sx2lSfAJjpN9A4vu5aeJcvAX-WRzzUtXtRFA',
   },
 });
 
 const useApi = () => ({
-
   GetCards: async () => {
     try {
       const response = await api.get('/user/cards');
@@ -25,7 +40,22 @@ const useApi = () => ({
 
   UpdateProxies: async (id: string, group_name: string, proxies: string[]) => {
     try {
-      const response = await api.put(`/user/proxies?groupID=${id}`, { group_name, proxies });
+      const response = await api.put(`/user/proxies?groupID=${id}`, {
+        group_name,
+        proxies,
+      });
+      if (response.data) {
+        return response.data;
+      }
+    } catch (error) {
+      console.error('There was a problem with the request:', error.message);
+    }
+  },
+
+  UpdateCards: async (CardsID: number, card: CreditCardData) => {
+    try {
+      console.log(card);
+      const response = await api.put(`/user/cards?cardId=${CardsID}`, { card });
       if (response.data) {
         return response.data;
       }
@@ -44,10 +74,9 @@ const useApi = () => ({
       console.error('There was a problem with the request:', error.message);
     }
   },
-  
+
   GetEventInfo: async (values: valuestype) => {
     try {
-      console.log(values);
       const response = await api.get(
         `/event/getDates?eventUrl=${values.EventURL}&ProxyGroupId=${values.ProxyID}&CardGroupId=${values.CardID}`
       );
@@ -61,7 +90,6 @@ const useApi = () => ({
 
   GetSeatsInfo: async (date: number) => {
     try {
-      console.log(date)
       const response = await api.get(`/event/getSeats?&dateId=${date}`);
       if (response.data) {
         return response.data;
@@ -75,7 +103,6 @@ const useApi = () => ({
     try {
       const response = await api.post('/user/proxies', { group_name, proxies });
       if (response.data) {
-        console.log(response.data)
         return response.data;
       }
     } catch (error) {
@@ -83,9 +110,9 @@ const useApi = () => ({
     }
   },
 
-  SendCreditCard: async (creditCard: { [key: string]: string }) => {
+  SendCreditCard: async (card: CreditCardData) => {
     try {
-      const response = await api.post('/card', { creditCard });
+      const response = await api.post('/user/cards', { card });
       if (response.data) {
         return response.data;
       }
@@ -96,7 +123,6 @@ const useApi = () => ({
 
   SelectedSeat: async (seat: any) => {
     try {
-      console.log(seat);
       const response = await api.post('/seat', { seat });
       if (response.data) {
         return response.data;

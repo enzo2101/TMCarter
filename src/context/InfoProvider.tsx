@@ -15,7 +15,6 @@ export const InfoProvider = ({ children }: { children: JSX.Element }) => {
       api
         .GetProxies()
         .then((response) => {
-          console.log(response);
           setProxyGroup(response);
         })
         .catch((error) => {
@@ -28,7 +27,6 @@ export const InfoProvider = ({ children }: { children: JSX.Element }) => {
       api
         .GetCards()
         .then((response) => {
-          console.log(response);
           setCardGroup(response);
         })
         .catch((error) => {

@@ -97,7 +97,7 @@ export const Proxies = () => {
         className='mt-2 rounded-3xl bg-TMCarter border-[1px] border-TMBorder text-white p-4 w-[300px] outline-none'
           value={ProxyGroupID}
           onChange={(e) => setProxyGroupID(e.currentTarget.value)}>
-          <option value="" disabled >Select a proxy group to update</option>
+          <option value="" >Select proxy group to update</option>
           {Array.isArray(proxies) &&
             proxies?.map((proxy: ProxyGroup) => (
               <option
