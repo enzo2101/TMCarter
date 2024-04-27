@@ -9,8 +9,10 @@ import { Seats } from '../types/Seats';
 import { SelectedDate } from '../components/SelectedDate';
 import { DateInfo } from '../components/DateInfo';
 import { InfoContext } from '../context/InfoContext';
-import { proxyGroup } from '../types/proxyGroupType';
-import { cardGroup } from '../types/cardGroupType';
+import { ProxyGroup } from '../types/ProxyGroupType';
+import { CardGroup } from '../types/CardGroupType';
+import { ProxiesSelector } from '../components/ProxiesSelector';
+import { CardsSelector } from '../components/CardsSelector';
 
 
 export const Checkout = () => {
@@ -23,10 +25,6 @@ export const Checkout = () => {
   const [selectedCard, setSelectedCard] = useState<string>('');
 
   const info = useContext(InfoContext);
-
-  const proxies = info?.proxyGroup;
-
-  const cards = info?.cardGroup;
 
   moment.locale('en');
 
@@ -65,36 +63,8 @@ export const Checkout = () => {
                       placeholder="Event URL"
                       value={values.EventURL}
                       className="mt-2 rounded-3xl bg-TMCarter border-[1px] border-TMBorder text-white p-4 w-[500px] outline-none"></Field>
-                    {Array.isArray(proxies) && proxies && (
-                      <Field
-                        as="select"
-                        name="ProxyID"
-                        className="p-4 rounded-lg w-2/3">
-                        <option value="">Select Proxy Group</option>
-                        {proxies.map((proxy: proxyGroup, index) => (
-                          <option
-                            key={index}
-                            value={proxy.ID}>
-                            {proxy.Name}
-                          </option>
-                        ))}
-                      </Field>
-                    )}
-                    {Array.isArray(cards) && cards && (
-                      <Field
-                        as="select"
-                        name="CardID"
-                        className="p-4 rounded-lg w-2/3">
-                        <option value="">Select Card Group</option>
-                        {cards.map((card: cardGroup, index) => (
-                          <option
-                            key={index}
-                            value={card.id}>
-                            {card.number.substring(card.number.length - 4)}
-                          </option>
-                        ))}
-                      </Field>
-                    )}
+                    <ProxiesSelector proxyPlaceholder="Select Proxy Group" />
+                    <CardsSelector cardPlaceholder="Select Card Group" />
                     <button
                       className="border-[1px] border-transparent border-solid rounded-xl bg-zinc-600 hover:text-white p-2 m-2 cursor-pointer w-full"
                       type="submit"

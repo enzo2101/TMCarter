@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import useApi from '../hooks/useApi';
 import { InfoContext } from './InfoContext';
-import { proxyGroup } from '../types/proxyGroupType';
-import { cardGroup } from '../types/cardGroupType';
+import { ProxyGroup } from '../types/ProxyGroupType';
+import { CardGroup } from '../types/CardGroupType';
 
 export const InfoProvider = ({ children }: { children: JSX.Element }) => {
   const api = useApi();
 
-  const [proxyGroup, setProxyGroup] = useState<proxyGroup | null>(null);
-  const [cardGroup, setCardGroup] = useState<cardGroup | null>(null);
+  const [ProxyGroup, setProxyGroup] = useState<ProxyGroup | null>(null);
+  const [CardGroup, setCardGroup] = useState<CardGroup | null>(null);
 
   useEffect(() => {
     const GetProxies = async () => {
@@ -39,7 +39,7 @@ export const InfoProvider = ({ children }: { children: JSX.Element }) => {
   }, []);
 
   return (
-    <InfoContext.Provider value={{ proxyGroup, cardGroup }}>
+    <InfoContext.Provider value={{ ProxyGroup, CardGroup }}>
       {children}
     </InfoContext.Provider>
   );

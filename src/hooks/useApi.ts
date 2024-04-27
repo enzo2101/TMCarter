@@ -23,6 +23,17 @@ const useApi = () => ({
     }
   },
 
+  UpdateProxies: async (id: string, group_name: string, proxies: string[]) => {
+    try {
+      const response = await api.put(`/user/proxies?groupID=${id}`, { group_name, proxies });
+      if (response.data) {
+        return response.data;
+      }
+    } catch (error) {
+      console.error('There was a problem with the request:', error.message);
+    }
+  },
+
   GetProxies: async () => {
     try {
       const response = await api.get('/user/proxies');
@@ -38,7 +49,7 @@ const useApi = () => ({
     try {
       console.log(values);
       const response = await api.get(
-        `/event/getDates?eventUrl=${values.EventURL}&proxyGroupId=${values.ProxyID}&cardGroupId=${values.CardID}`
+        `/event/getDates?eventUrl=${values.EventURL}&ProxyGroupId=${values.ProxyID}&CardGroupId=${values.CardID}`
       );
       if (response.data) {
         return response.data;

@@ -1,11 +1,11 @@
 import { createContext } from "react";
 
-import { proxyGroup } from "../types/proxyGroupType";
-import { cardGroup } from "../types/cardGroupType";
+import { ProxyGroup } from "../types/ProxyGroupType";
+import { CardGroup } from "../types/CardGroupType";
 
 type InfoContextType = {
-  proxyGroup: proxyGroup | null;
-  cardGroup: cardGroup | null;
+  ProxyGroup: ProxyGroup | null;
+  CardGroup: CardGroup | null;
 }
 
 export const InfoContext = createContext<InfoContextType | null>(null!);

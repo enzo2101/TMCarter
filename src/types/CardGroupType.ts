@@ -1,4 +1,4 @@
-export type cardGroup = {
+export type CardGroup = {
   address_id: number;
   user_id: number;
   id: number;
