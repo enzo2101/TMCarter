@@ -59,7 +59,7 @@ export const Proxies = () => {
                     ProxyGroupID,
                     values.ProxiesName,
                     proxiesParsed
-                  ); window.location.reload();
+                  );
               }
               resetForm();
             }}>
@@ -83,7 +83,7 @@ export const Proxies = () => {
                   />
                   <button
                     type="submit"
-                    className="bordesr-[1px] border-transparent border-solid rounded-xl bg-zinc-600 hover:text-white p-2 m-2 cursor-pointer">
+                    className="border-[1px] border-transparent border-solid rounded-xl bg-zinc-600 hover:text-white p-2 m-2 cursor-pointer">
                     {!ProxyGroupID && <span>Create Proxy Group</span> || <span>Update Proxy Group</span>}
                   </button>
                 </Form>
@@ -94,6 +94,7 @@ export const Proxies = () => {
       </div>
       <div className="w-96">
         <select
+        className='mt-2 rounded-3xl bg-TMCarter border-[1px] border-TMBorder text-white p-4 w-[300px] outline-none'
           value={ProxyGroupID}
           onChange={(e) => setProxyGroupID(e.currentTarget.value)}>
           <option value="" disabled >Select a proxy group to update</option>
