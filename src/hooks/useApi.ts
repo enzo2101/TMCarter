@@ -54,7 +54,6 @@ const useApi = () => ({
 
   UpdateCards: async (CardsID: number, card: CreditCardData) => {
     try {
-      console.log(card);
       const response = await api.put(`/user/cards?cardId=${CardsID}`, { card });
       if (response.data) {
         return response.data;
@@ -123,6 +122,7 @@ const useApi = () => ({
 
   SelectedSeat: async (seat: any) => {
     try {
+      console.log(seat);
       const response = await api.post('/seat', { seat });
       if (response.data) {
         return response.data;
