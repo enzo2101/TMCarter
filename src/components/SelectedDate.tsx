@@ -20,7 +20,7 @@ export const SelectedDate = ({
   
   const handleClick = (index: number) => {
     if (index === selectedSeat) {
-      setSelectedSeat(null); // Desseleciona o botão se ele já estiver selecionado
+      setSelectedSeat(null);
     } else {
       setSelectedSeat(index);
       setSeatIndex(index);
