@@ -1,16 +1,20 @@
 import { Field, Form, Formik } from 'formik';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '../context/Auth/AuthContext';
 
 export const Login = () => {
   const auth = useContext(AuthContext);
 
   return (
-    <div className="bg-transparent h-[500px] w-[500px] border-[1px] rounded-xl ">
+    <div className="bg-transparent h-[500px] w-[500px] border-[1px] rounded-xl flex flex-col">
+      <h1 className="pt-20 text-4xl font-bold">Login</h1>
       <Formik
         initialValues={{ username: '', password: '' }}
         onSubmit={async (values) => {
           const response = await auth.login(values.username, values.password);
+          if (response) {
+            alert
+          }
         }}>
         {({ values }) => (
           <Form className="flex flex-col items-center justify-center h-full space-y-4">

@@ -3,25 +3,19 @@ import { AuthContext } from './AuthContext';
 
 export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const api = useAuthApi();
+
   const register = async (username: string, password: string) => {
-    try {
-      const response = await api.register(username, password);
-      if (response.data) {
-        console.log(response.data);
-      }
-    } catch (error) {
-      console.error('There was a problem with the request:', error.message);
+    const response = await api.register(username, password);
+    if (response) {
+      return response;
     }
   };
 
   const login = async (username: string, password: string) => {
-    try {
-      const response = await api.login(username, password);
-      if (response) {
-        localStorage.setItem('token', JSON.stringify(response));
-      }
-    } catch (error) {
-      console.error('There was a problem with the request:', error.message);
+    const response = await api.login(username, password);
+    if (response) {
+      localStorage.setItem('token', JSON.stringify(response));
+      return response;
     }
   };
 

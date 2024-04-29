@@ -10,6 +10,8 @@ import { InfoProvider } from './context/InfoProvider.tsx';
 import { Register } from './pages/Register.tsx';
 import { Login } from './pages/Login.tsx';
 import { AuthProvider } from './context/Auth/AuthProvider.tsx';
+import { RequireAuth } from './context/Auth/RequireAuth.tsx';
+import { TMAccounts } from './pages/TMAccounts.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -19,28 +21,32 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Routes>
             <Route
               path="/"
-              element={<App />}
+              element={<RequireAuth><App /></RequireAuth>}
             />
             <Route
               path="/checkout"
-              element={<Checkout />}
+              element={<RequireAuth><Checkout /></RequireAuth>}
             />
             <Route
               path="/cards"
-              element={<Cards />}
+              element={<RequireAuth><Cards /></RequireAuth>}
             />
             <Route
               path="/proxies"
-              element={<Proxies />}
+              element={<RequireAuth><Proxies /></RequireAuth>}
+            />
+            <Route
+              path="/tmaccount"
+              element={<RequireAuth><TMAccounts /></RequireAuth>}
             />
             <Route
               path="/register"
               element={<Register />}
             />
             <Route
-          path="/login"
-          element={<Login/>}
-        />
+              path="/login"
+              element={<Login />}
+            />
           </Routes>
         </BrowserRouter>
       </InfoProvider>

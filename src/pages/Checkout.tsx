@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Header } from '../components/Header';
 import { Sidebar } from '../components/Sidebar';
 import { Formik, Form, Field } from 'formik';
@@ -8,9 +8,6 @@ import moment from 'moment';
 import { Seats } from '../types/Seats';
 import { SelectedDate } from '../components/SelectedDate';
 import { DateInfo } from '../components/DateInfo';
-import { InfoContext } from '../context/InfoContext';
-import { ProxyGroup } from '../types/ProxyGroupType';
-import { CardGroup } from '../types/CardGroupType';
 import { ProxiesSelector } from '../components/ProxiesSelector';
 import { CardsSelector } from '../components/CardsSelector';
 
@@ -23,8 +20,6 @@ export const Checkout = () => {
   const [selectedDate, setSelectedDate] = useState<string>('');
 
   const [selectedCard, setSelectedCard] = useState<string>('');
-
-  const info = useContext(InfoContext);
 
   moment.locale('en');
 

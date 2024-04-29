@@ -8,6 +8,7 @@ export default {
       colors: {
         "TMCarter": "#151517",
         "TMBorder": "#222024",
+        "TMSideHeader": "#1D1D20"
       }
     },
   },

@@ -21,12 +21,12 @@ const api = axios.create({
   baseURL: 'http://127.0.0.1:8080',
   headers: {
     'Content-Type': 'application/json',
-    Authorization:
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjF9.U8vklm5sx2lSfAJjpN9A4vu5aeJcvAX-WRzzUtXtRFA',
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
   },
 });
 
 const useApi = () => ({
+
   GetCards: async () => {
     try {
       const response = await api.get('/user/cards');

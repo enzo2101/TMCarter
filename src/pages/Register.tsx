@@ -1,20 +1,18 @@
 import { Field, Form, Formik } from 'formik';
 import { useContext } from 'react';
 import { AuthContext } from '../context/Auth/AuthContext';
+import { redirect } from 'react-router';
 
 export const Register = () => {
   const auth = useContext(AuthContext);
 
   return (
-    <div className="bg-transparent h-[500px] w-[500px] border-[1px] rounded-xl ">
+    <div className="bg-transparent h-[500px] w-[500px] border-[1px] rounded-xl flex flex-col ">
+      <h1 className="pt-20 text-4xl font-bold">Register</h1>
       <Formik
         initialValues={{ username: '', password: '' }}
         onSubmit={async (values) => {
-          const response = await auth.register(
-            values.username,
-            values.password
-          );
-          console.log(response);
+          auth.register(values.username, values.password).then((response) => {response && redirect('/login')}).catch((error) => console.log(error));
         }}>
         {({ values }) => (
           <Form className="flex flex-col items-center justify-center h-full space-y-4">
