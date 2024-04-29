@@ -11,7 +11,6 @@ const useAuthApi = () => ({
   register: async (username: string, password: string) => {
     try {
       const response = await api.post('/auth/register', { username, password });
-      console.log(response.data);
       if (response.data) {
         return response.data;
       }

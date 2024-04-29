@@ -17,7 +17,7 @@ export const SelectedDate = ({
   const [selectedSeat, setSelectedSeat] = useState<number | null>(null);
   const [seatIndex, setSeatIndex] = useState<number>();
   const [cardID, setCardID] = useState<string>();
-  
+
   const handleClick = (index: number) => {
     if (index === selectedSeat) {
       setSelectedSeat(null);
@@ -37,7 +37,11 @@ export const SelectedDate = ({
           seatsInfo?.map((seat, index) => (
             <button
               type="submit"
-              className={selectedSeat === index ? "flex flex-row justify-between items-center space-x-10 p-3 border-blue-500" : "flex flex-row justify-between items-center space-x-10 p-3"}
+              className={
+                selectedSeat === index
+                  ? 'flex flex-row justify-between items-center space-x-10 p-3 border-blue-500'
+                  : 'flex flex-row justify-between items-center space-x-10 p-3'
+              }
               key={index}
               onClick={() => handleClick(index)}>
               <p>Price: € {seat.price}</p>
@@ -50,10 +54,7 @@ export const SelectedDate = ({
             className="border-[1px] border-transparent border-solid rounded-xl bg-zinc-600 hover:text-white p-2 m-2 cursor-pointer w-full"
             onClick={() => {
               setSelectedSeat(null);
-              api.SelectedSeat({
-                seatIndex,
-                cardID,
-              });
+              api.SelectedSeat(seatIndex, Number(cardID));
             }}>
             Confirm Checkout
           </button>

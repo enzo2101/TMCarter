@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const login = async (username: string, password: string) => {
     const response = await api.login(username, password);
     if (response) {
-      localStorage.setItem('token', JSON.stringify(response));
+      localStorage.setItem('token', response.token);
       return response;
     }
   };

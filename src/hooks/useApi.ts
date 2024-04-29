@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { valuestype } from '../types/valuesType';
+import { getSearchParamsForLocation } from 'react-router-dom/dist/dom';
 
 type CreditCardData = {
   number: string;
@@ -21,7 +22,7 @@ const api = axios.create({
   baseURL: 'http://127.0.0.1:8080',
   headers: {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${localStorage.getItem('token')}`,
+    Authorization: `Bearer ${localStorage.getItem('token')} `
   },
 });
 
@@ -64,7 +65,9 @@ const useApi = () => ({
 
   UpdateCards: async (CardsID: number, card: CreditCardData) => {
     try {
-      const response = await api.put(`/user/cards?cardId=${CardsID}`, { card });
+      const response = await api.put(`/user/cards?cardId=${CardsID}`, {
+        card,
+      });
       if (response.data) {
         return response.data;
       }
@@ -110,7 +113,10 @@ const useApi = () => ({
 
   SendProxies: async (group_name: string, proxies: string[]) => {
     try {
-      const response = await api.post('/user/proxies', { group_name, proxies });
+      const response = await api.post('/user/proxies', {
+        group_name,
+        proxies,
+      });
       if (response.data) {
         return response.data;
       }
@@ -130,10 +136,9 @@ const useApi = () => ({
     }
   },
 
-  SelectedSeat: async (seat: any) => {
+  SelectedSeat: async (seatIndex: number | undefined, cardID: number | undefined) => {
     try {
-      console.log(seat);
-      const response = await api.post('/seat', { seat });
+      const response = await api.post(`/event/checkout?seatIndex=${seatIndex}?cardId=${cardID}`);
       if (response.data) {
         return response.data;
       }
