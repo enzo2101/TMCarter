@@ -21,11 +21,21 @@ const api = axios.create({
   baseURL: 'http://127.0.0.1:8080',
   headers: {
     'Content-Type': 'application/json',
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
+    Authorization: `Bearer ${localStorage.getItem('token')}`,
   },
 });
 
 const useApi = () => ({
+  SendTMAccount: async (email: string, password: string) => {
+    try {
+      const response = await api.post('/user/tmAccount', { email, password });
+      if (response.data) {
+        return response.data;
+      }
+    } catch (error) {
+      console.error('There was a problem with the request:', error.message);
+    }
+  },
 
   GetCards: async () => {
     try {
