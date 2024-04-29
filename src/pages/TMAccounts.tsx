@@ -73,11 +73,11 @@ export const TMAccounts = () => {
                     value={values.TMpassword}
                     className="mt-2 rounded-3xl bg-TMCarter border-[1px] border-TMBorder text-white p-4 w-[500px] outline-none"
                   />
-                  <button
+                  {!currentTMAccount && <button
                     type="submit"
                     className="border-[1px] border-transparent border-solid rounded-xl bg-zinc-600 hover:text-white p-2 m-2 cursor-pointer">
                     Add TMAccount
-                  </button>
+                  </button>}
                 </Form>
               </div>
             )}
